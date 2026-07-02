@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "titanic-production-ml"
+version = "0.1.0"
+description = "Production Grade Machine Learning Pipeline"
+readme = "README.md"
+requires-python = ">=3.12"
+
+authors = [
+    {name = "Argha Sarkar"}
+]
+
+dynamic = ["dependencies"]
+
+[tool.black]
+line-length = 88
+
+[tool.ruff]
+line-length = 88
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,11 @@
+README.md
+pyproject.toml
+setup.cfg
+setup.py
+./src/__init__.py
+src/__init__.py
+tests/test_import.py
+titanic_production_ml.egg-info/PKG-INFO
+titanic_production_ml.egg-info/SOURCES.txt
+titanic_production_ml.egg-info/dependency_links.txt
+titanic_production_ml.egg-info/top_level.txt

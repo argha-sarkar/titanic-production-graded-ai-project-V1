@@ -1,0 +1,7 @@
+README.md
+pyproject.toml
+src/__init__.py
+src/titanic_project.egg-info/PKG-INFO
+src/titanic_project.egg-info/SOURCES.txt
+src/titanic_project.egg-info/dependency_links.txt
+src/titanic_project.egg-info/top_level.txt

@@ -1,0 +1,78 @@
+# ==========================================================
+# Project Information
+# ==========================================================
+
+project:
+  name: titanic-production-ml
+  version: 1.0.0
+  stage: development
+
+# ==========================================================
+# Data
+# ==========================================================
+
+data:
+
+  train_data_path: data/raw/train.csv
+
+  test_data_path: data/raw/test.csv
+
+  prediction_data_path: data/raw/predict.csv
+
+# ==========================================================
+# Artifact Paths
+# ==========================================================
+
+artifacts:
+
+  root_dir: artifacts
+
+  data_ingestion:
+
+    root_dir: artifacts/data_ingestion
+
+    train_file: artifacts/data_ingestion/train.csv
+
+    test_file: artifacts/data_ingestion/test.csv
+
+  data_validation:
+
+    root_dir: artifacts/data_validation
+
+    validation_report: artifacts/data_validation/report.yaml
+
+    validation_status: artifacts/data_validation/status.txt
+
+  data_transformation:
+
+    root_dir: artifacts/data_transformation
+
+    train_array: artifacts/data_transformation/train.npy
+
+    test_array: artifacts/data_transformation/test.npy
+
+    preprocessor: artifacts/data_transformation/preprocessor.joblib
+
+  model_trainer:
+
+    root_dir: artifacts/model_trainer
+
+    trained_model: artifacts/model_trainer/model.joblib
+
+# ==========================================================
+# Model Parameters
+# ==========================================================
+
+model:
+
+  random_state: 42
+
+  test_size: 0.20
+
+# ==========================================================
+# Logging
+# ==========================================================
+
+logging:
+
+  level: INFO

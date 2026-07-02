@@ -1,0 +1,7 @@
+Metadata-Version: 2.4
+Name: titanic-production-ml
+Version: 0.1.0
+Summary: Production Grade Machine Learning Pipeline
+Author: Argha Sarkar
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
