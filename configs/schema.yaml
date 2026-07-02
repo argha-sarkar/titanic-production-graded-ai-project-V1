@@ -1,0 +1,117 @@
+# ==========================================================
+# Titanic Dataset Schema
+# ==========================================================
+
+dataset:
+  name: Titanic
+  version: 1.0
+
+# ==========================================================
+# Required Columns
+# ==========================================================
+
+required_columns:
+
+  - PassengerId
+  - Survived
+  - Pclass
+  - Name
+  - Sex
+  - Age
+  - SibSp
+  - Parch
+  - Ticket
+  - Fare
+  - Cabin
+  - Embarked
+
+# ==========================================================
+# Column Data Types
+# ==========================================================
+
+columns:
+
+  PassengerId:
+    dtype: int64
+    nullable: false
+
+  Survived:
+    dtype: int64
+    nullable: false
+
+  Pclass:
+    dtype: int64
+    nullable: false
+
+  Name:
+    dtype: object
+    nullable: false
+
+  Sex:
+    dtype: object
+    nullable: false
+
+  Age:
+    dtype: float64
+    nullable: true
+
+  SibSp:
+    dtype: int64
+    nullable: false
+
+  Parch:
+    dtype: int64
+    nullable: false
+
+  Ticket:
+    dtype: object
+    nullable: false
+
+  Fare:
+    dtype: float64
+    nullable: false
+
+  Cabin:
+    dtype: object
+    nullable: true
+
+  Embarked:
+    dtype: object
+    nullable: true
+
+# ==========================================================
+# Allowed Values
+# ==========================================================
+
+allowed_values:
+
+  Sex:
+
+    - male
+    - female
+
+  Embarked:
+
+    - C
+    - Q
+    - S
+
+# ==========================================================
+# Duplicate Rules
+# ==========================================================
+
+primary_key:
+
+  - PassengerId
+
+# ==========================================================
+# Missing Value Threshold
+# ==========================================================
+
+missing_value_threshold:
+
+  Age: 40
+
+  Cabin: 90
+
+  Embarked: 5

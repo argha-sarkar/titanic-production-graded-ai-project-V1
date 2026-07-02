@@ -2,8 +2,11 @@ README.md
 pyproject.toml
 setup.cfg
 setup.py
+./scripts/__init__.py
+./scripts/bootstrap.py
 ./src/__init__.py
 src/__init__.py
+tests/test_bootstrap.py
 tests/test_import.py
 titanic_production_ml.egg-info/PKG-INFO
 titanic_production_ml.egg-info/SOURCES.txt
