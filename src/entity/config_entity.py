@@ -65,3 +65,15 @@ class ModelTrainerConfig:
     root_dir: Path
 
     trained_model_path: Path
+    
+    
+# ==========================================================
+# Logging
+# ==========================================================
+
+@dataclass(frozen=True)
+class LoggingConfig:
+
+    log_level: str
+
+    log_dir: Path

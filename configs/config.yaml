@@ -76,3 +76,7 @@ model:
 logging:
 
   level: INFO
+
+  log_dir: logs
+
+  file_name: titanic.log

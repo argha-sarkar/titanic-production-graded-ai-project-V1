@@ -16,6 +16,7 @@ from src.entity.config_entity import (
     DataValidationConfig,
     DataTransformationConfig,
     ModelTrainerConfig,
+    LoggingConfig,
 )
 
 
@@ -124,4 +125,18 @@ class ConfigurationManager:
             trained_model_path=Path(
                 config["trained_model"]
             ),
+        )
+        
+    def get_logging_config(
+        self
+    ) -> LoggingConfig:
+        
+        config = self.config["logging"]
+
+        return LoggingConfig(
+
+        log_level=config["level"],
+
+        log_dir=Path("logs")
+        
         )
