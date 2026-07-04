@@ -130,13 +130,15 @@ class ConfigurationManager:
     def get_logging_config(
         self
     ) -> LoggingConfig:
-        
+
         config = self.config["logging"]
 
         return LoggingConfig(
 
         log_level=config["level"],
 
-        log_dir=Path("logs")
+        log_dir=Path(config["log_dir"])
+
+    )
         
-        )
+    

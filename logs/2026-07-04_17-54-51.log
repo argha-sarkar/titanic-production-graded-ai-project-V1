@@ -1,0 +1,4 @@
+2026-07-04 17:54:51 | INFO     | demo_logger.py:3 | Application has started.
+2026-07-04 17:54:51 | WARNING  | demo_logger.py:5 | This is a warning message.
+2026-07-04 17:54:51 | ERROR    | demo_logger.py:7 | This is an error message.
+2026-07-04 17:54:51 | INFO     | demo_logger.py:9 | Application working successfully.
