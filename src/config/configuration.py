@@ -1,7 +1,5 @@
 """
 Configuration Manager
-
-Loads project configuration files.
 """
 
 from pathlib import Path
@@ -10,30 +8,27 @@ import yaml
 
 from src.constants import (
     CONFIG_FILE_PATH,
-    SCHEMA_FILE_PATH
+    SCHEMA_FILE_PATH,
+)
+
+from src.entity.config_entity import (
+    DataIngestionConfig,
+    DataValidationConfig,
+    DataTransformationConfig,
+    ModelTrainerConfig,
 )
 
 
 class ConfigurationManager:
 
-    """
-    Reads all project configuration files.
-    """
-
     def __init__(self):
 
-        self.config = self.read_yaml(
+        self.config = self._read_yaml(
             CONFIG_FILE_PATH
         )
 
-        self.schema = self.read_yaml(
-            SCHEMA_FILE_PATH
-        )
-
     @staticmethod
-    def read_yaml(
-        file_path: Path
-    ) -> dict:
+    def _read_yaml(file_path: Path):
 
         with open(
             file_path,
@@ -45,10 +40,88 @@ class ConfigurationManager:
                 yaml_file
             )
 
-    def get_config(self):
+    def get_data_ingestion_config(
+        self
+    ) -> DataIngestionConfig:
 
-        return self.config
+        config = self.config["artifacts"]["data_ingestion"]
 
-    def get_schema(self):
+        return DataIngestionConfig(
 
-        return self.schema
+            root_dir=Path(
+                config["root_dir"]
+            ),
+
+            train_file_path=Path(
+                config["train_file"]
+            ),
+
+            test_file_path=Path(
+                config["test_file"]
+            ),
+        )
+
+    def get_data_validation_config(
+        self
+    ) -> DataValidationConfig:
+
+        config = self.config["artifacts"]["data_validation"]
+
+        return DataValidationConfig(
+
+            root_dir=Path(
+                config["root_dir"]
+            ),
+
+            validation_report_file_path=Path(
+                config["validation_report"]
+            ),
+
+            validation_status_file_path=Path(
+                config["validation_status"]
+            ),
+
+            schema_file_path=SCHEMA_FILE_PATH,
+        )
+
+    def get_data_transformation_config(
+        self
+    ) -> DataTransformationConfig:
+
+        config = self.config["artifacts"]["data_transformation"]
+
+        return DataTransformationConfig(
+
+            root_dir=Path(
+                config["root_dir"]
+            ),
+
+            train_array_path=Path(
+                config["train_array"]
+            ),
+
+            test_array_path=Path(
+                config["test_array"]
+            ),
+
+            preprocessor_path=Path(
+                config["preprocessor"]
+            ),
+        )
+
+    def get_model_trainer_config(
+        self
+    ) -> ModelTrainerConfig:
+
+        config = self.config["artifacts"]["model_trainer"]
+
+        return ModelTrainerConfig(
+
+            root_dir=Path(
+                config["root_dir"]
+            ),
+
+            trained_model_path=Path(
+                config["trained_model"]
+            ),
+        )
