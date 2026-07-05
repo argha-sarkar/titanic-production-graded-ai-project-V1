@@ -120,3 +120,20 @@ class DataValidationArtifact:
     report_file_path: Path
 
     status_file_path: Path
+    
+    
+# ==========================================================
+# Data Transformation Artifact
+# ==========================================================
+
+@dataclass(frozen=True)
+class DataTransformationArtifact:
+    """
+    Output of the Data Transformation component.
+    """
+
+    train_array_path: Path
+
+    test_array_path: Path
+
+    preprocessor_path: Path

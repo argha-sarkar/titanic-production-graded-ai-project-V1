@@ -45,7 +45,8 @@ class TrainingPipeline:
 
         validation = DataValidation(
 
-            self.config.get_data_validation_config()
+            config = self.config.get_data_validation_config(),
+            ingestion_artifact=ingestion_artifact,
 
         )
 

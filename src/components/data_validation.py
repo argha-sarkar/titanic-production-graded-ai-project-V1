@@ -7,6 +7,7 @@ import sys
 import pandas as pd
 
 from src.entity.config_entity import (
+    DataIngestionArtifact,
     DataValidationArtifact,
     DataValidationConfig,
 )
@@ -34,9 +35,12 @@ class DataValidation:
     def __init__(
         self,
         config: DataValidationConfig,
+        ingestion_artifact: DataIngestionArtifact,
     ) -> None:
 
         self.config = config
+
+        self.ingestion_artifact = ingestion_artifact
 
         self.dataset = None
 
@@ -59,7 +63,7 @@ class DataValidation:
         )
 
         self.dataset = pd.read_csv(
-            self.config.train_file_path
+            self.ingestion_artifact.train_file_path
         )
         
     def _load_schema(
