@@ -41,26 +41,39 @@ class ConfigurationManager:
                 yaml_file
             )
 
+    
     def get_data_ingestion_config(
-        self
+    self
     ) -> DataIngestionConfig:
 
-        config = self.config["artifacts"]["data_ingestion"]
+        artifact_config = self.config["artifacts"]["data_ingestion"]
+
+        data_config = self.config["data"]
 
         return DataIngestionConfig(
 
             root_dir=Path(
-                config["root_dir"]
+                artifact_config["root_dir"]
             ),
 
-            train_file_path=Path(
-                config["train_file"]
+            raw_train_data_path=Path(
+                data_config["train_data_path"]
             ),
 
-            test_file_path=Path(
-                config["test_file"]
+            raw_test_data_path=Path(
+                data_config["test_data_path"]
             ),
+
+            ingested_train_path=Path(
+                artifact_config["train_file"]
+            ),
+
+            ingested_test_path=Path(
+                artifact_config["test_file"]
+            )
         )
+        
+        
 
     def get_data_validation_config(
         self

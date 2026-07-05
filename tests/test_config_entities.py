@@ -1,3 +1,5 @@
+from logging import config
+
 from src.config.configuration import (
     ConfigurationManager
 )
@@ -9,7 +11,9 @@ def test_data_ingestion_config():
 
     config = manager.get_data_ingestion_config()
 
-    assert config.train_file_path.name == "train.csv"
+    assert config.raw_train_data_path.name == "train.csv"
+
+    assert config.ingested_train_path.name == "train.csv"
 
 
 def test_model_trainer_config():

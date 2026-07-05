@@ -15,14 +15,20 @@ from pathlib import Path
 
 @dataclass(frozen=True)
 class DataIngestionConfig:
-
+    """
+    Configuration required for the Data Ingestion component.
+    """
+    
     root_dir: Path
+    
+    raw_train_data_path: Path
+    
+    raw_test_data_path: Path
+    
+    ingested_train_path: Path
 
-    train_file_path: Path
-
-    test_file_path: Path
-
-
+    ingested_test_path: Path
+    
 # ==========================================================
 # Data Validation
 # ==========================================================
