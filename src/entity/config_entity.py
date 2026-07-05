@@ -35,14 +35,19 @@ class DataIngestionConfig:
 
 @dataclass(frozen=True)
 class DataValidationConfig:
+    """
+    Configuration for Data Validation.
+    """
 
     root_dir: Path
+
+    train_file_path: Path
+
+    schema_file_path: Path
 
     validation_report_file_path: Path
 
     validation_status_file_path: Path
-
-    schema_file_path: Path
 
 
 # ==========================================================
@@ -98,3 +103,20 @@ class DataIngestionArtifact:
     train_file_path: Path
 
     test_file_path: Path
+    
+    
+# ==========================================================
+# Data Validation Artifact
+# ==========================================================
+
+@dataclass(frozen=True)
+class DataValidationArtifact:
+    """
+    Output of the Data Validation component.
+    """
+
+    validation_status: bool
+
+    report_file_path: Path
+
+    status_file_path: Path

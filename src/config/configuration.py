@@ -74,30 +74,38 @@ class ConfigurationManager:
         )
         
         
-
     def get_data_validation_config(
-        self
+        self,
     ) -> DataValidationConfig:
 
-        config = self.config["artifacts"]["data_validation"]
+        artifact_config = self.config["artifacts"]["data_validation"]
+
+        ingestion_config = self.config["artifacts"]["data_ingestion"]
 
         return DataValidationConfig(
 
             root_dir=Path(
-                config["root_dir"]
+                artifact_config["root_dir"]
             ),
 
-            validation_report_file_path=Path(
-                config["validation_report"]
-            ),
-
-            validation_status_file_path=Path(
-                config["validation_status"]
+            train_file_path=Path(
+                ingestion_config["train_file"]
             ),
 
             schema_file_path=SCHEMA_FILE_PATH,
+
+            validation_report_file_path=Path(
+                artifact_config["validation_report"]
+            ),
+
+            validation_status_file_path=Path(
+                artifact_config["validation_status"]
+            ),
         )
 
+    
+    
+    
     def get_data_transformation_config(
         self
     ) -> DataTransformationConfig:
