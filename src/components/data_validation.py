@@ -97,3 +97,256 @@ class DataValidation:
 
             "missing_threshold": None,
         }
+        
+    def _check_required_columns(
+        self,
+    ) -> None:
+        """
+        Check whether all required columns exist.
+        """
+
+        logger.info(
+            "Checking required columns."
+        )
+
+        required_columns = self.schema[
+            "required_columns"
+        ]
+
+        missing_columns = []
+
+        for column in required_columns:
+
+            if column not in self.dataset.columns:
+
+                missing_columns.append(column)
+
+        if missing_columns:
+
+            self.validation_status = False
+
+            self.validation_report[
+                "required_columns"
+            ] = "FAILED"
+
+            self.validation_report[
+                "missing_columns"
+            ] = missing_columns
+
+        else:
+
+            self.validation_report[
+                "required_columns"
+            ] = "PASSED"  
+            
+    
+    def _check_data_types(
+        self,
+    ) -> None:
+        """
+        Validate dataset column data types.
+        """
+
+        logger.info(
+            "Checking data types."
+        )
+
+        errors = []
+
+        schema_columns = self.schema["columns"]
+
+        for column, details in schema_columns.items():
+
+            if column not in self.dataset.columns:
+                continue
+
+            actual_dtype = str(
+                self.dataset[column].dtype
+            )
+
+            expected_dtype = details["dtype"]
+
+            if actual_dtype != expected_dtype:
+
+                errors.append(
+
+                    {
+                        "column": column,
+                        "expected": expected_dtype,
+                        "actual": actual_dtype,
+                    }
+
+                )
+
+        if errors:
+
+            self.validation_status = False
+
+            self.validation_report[
+                "dtype_validation"
+            ] = errors
+
+        else:
+
+            self.validation_report[
+                "dtype_validation"
+            ] = "PASSED"  
+            
+            
+    def _check_allowed_values(
+        self,
+    ) -> None:
+        """
+        Validate categorical values.
+        """
+
+        logger.info(
+            "Checking categorical values."
+        )
+
+        allowed = self.schema.get(
+            "allowed_values",
+            {}
+        )
+
+        invalid = {}
+
+        for column, valid_values in allowed.items():
+
+            if column not in self.dataset.columns:
+                continue
+
+            observed = (
+                self.dataset[column]
+                .dropna()
+                .unique()
+            )
+
+            bad_values = [
+
+                value
+
+                for value in observed
+
+                if value not in valid_values
+
+            ]
+
+            if bad_values:
+
+                invalid[column] = bad_values
+
+        if invalid:
+
+            self.validation_status = False
+
+            self.validation_report[
+                "allowed_values"
+            ] = invalid
+
+        else:
+
+            self.validation_report[
+                "allowed_values"
+            ] = "PASSED"
+            
+    
+    def _check_duplicates(
+        self,
+    ) -> None:
+        """
+        Check duplicate PassengerId.
+        """
+
+        logger.info(
+            "Checking duplicates."
+        )
+
+        primary_key = self.schema[
+            "primary_key"
+        ][0]
+
+        duplicates = self.dataset[
+            self.dataset[
+                primary_key
+            ].duplicated()
+        ]
+
+        if not duplicates.empty:
+
+            self.validation_status = False
+
+            self.validation_report[
+                "duplicate_check"
+            ] = duplicates[
+                primary_key
+            ].tolist()
+
+        else:
+
+            self.validation_report[
+                "duplicate_check"
+            ] = "PASSED"
+            
+            
+    def _check_missing_threshold(
+        self,
+    ) -> None:
+        """
+        Check missing value percentage.
+        """
+
+        logger.info(
+            "Checking missing thresholds."
+        )
+
+        thresholds = self.schema[
+            "missing_value_threshold"
+        ]
+
+        failures = {}
+
+        for column, threshold in thresholds.items():
+
+            if column not in self.dataset.columns:
+                continue
+
+            percentage = (
+
+                self.dataset[column]
+
+                .isnull()
+
+                .mean()
+
+                * 100
+
+            )
+
+            if percentage > threshold:
+
+                failures[column] = {
+
+                    "threshold": threshold,
+
+                    "actual": round(
+                        percentage,
+                        2,
+                    ),
+                }
+
+        if failures:
+
+            self.validation_status = False
+
+            self.validation_report[
+                "missing_threshold"
+            ] = failures
+
+        else:
+
+            self.validation_report[
+                "missing_threshold"
+            ] = "PASSED"      
+          
+    
