@@ -1,0 +1,7 @@
+validation_status: true
+required_columns: PASSED
+missing_columns: []
+dtype_validation: PASSED
+duplicate_check: PASSED
+allowed_values: PASSED
+missing_threshold: PASSED

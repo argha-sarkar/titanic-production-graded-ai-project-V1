@@ -1,0 +1,18 @@
+2026-07-06 01:57:20 | INFO     | training_pipeline.py:26 | Training Pipeline Started.
+2026-07-06 01:57:20 | INFO     | data_ingestion.py:80 | Starting Data Ingestion.
+2026-07-06 01:57:20 | INFO     | data_ingestion.py:41 | Creating artifact directory.
+2026-07-06 01:57:20 | INFO     | data_ingestion.py:68 | data\raw\train.csv copied to artifacts\data_ingestion\train.csv
+2026-07-06 01:57:20 | INFO     | data_ingestion.py:68 | data\raw\test.csv copied to artifacts\data_ingestion\test.csv
+2026-07-06 01:57:20 | INFO     | data_ingestion.py:102 | Data Ingestion Completed.
+2026-07-06 01:57:20 | INFO     | training_pipeline.py:42 | DataIngestionArtifact(train_file_path=WindowsPath('artifacts/data_ingestion/train.csv'), test_file_path=WindowsPath('artifacts/data_ingestion/test.csv'))
+2026-07-06 01:57:20 | INFO     | data_validation.py:390 | Starting Data Validation.
+2026-07-06 01:57:20 | INFO     | data_validation.py:57 | Loading training dataset.
+2026-07-06 01:57:20 | INFO     | data_validation.py:72 | Loading schema.
+2026-07-06 01:57:20 | INFO     | data_validation.py:108 | Checking required columns.
+2026-07-06 01:57:20 | INFO     | data_validation.py:150 | Checking data types.
+2026-07-06 01:57:20 | INFO     | data_validation.py:203 | Checking categorical values.
+2026-07-06 01:57:20 | INFO     | data_validation.py:261 | Checking duplicates.
+2026-07-06 01:57:20 | INFO     | data_validation.py:299 | Checking missing thresholds.
+2026-07-06 01:57:20 | INFO     | data_validation.py:412 | Data Validation Completed.
+2026-07-06 01:57:20 | INFO     | training_pipeline.py:58 | DataValidationArtifact(validation_status=True, report_file_path=WindowsPath('artifacts/data_validation/report.yaml'), status_file_path=WindowsPath('artifacts/data_validation/status.txt'))
+2026-07-06 01:57:20 | INFO     | training_pipeline.py:62 | Training Pipeline Completed.

@@ -347,6 +347,89 @@ class DataValidation:
 
             self.validation_report[
                 "missing_threshold"
-            ] = "PASSED"      
+            ] = "PASSED"     
+            
+    
+            
+    def _save_validation_report(
+        self,
+    ) -> None:
+        """
+        Save validation report and status.
+        """
+
+        self.validation_report[
+            "validation_status"
+        ] = self.validation_status
+
+        write_yaml(
+            self.config.validation_report_file_path,
+            self.validation_report,
+        )
+
+        self.config.validation_status_file_path.parent.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+
+        self.config.validation_status_file_path.write_text(
+            str(self.validation_status),
+            encoding="utf-8",
+        )
           
     
+    def initiate_data_validation(
+        self,
+    ) -> DataValidationArtifact:
+        """
+        Execute all validation steps.
+        """
+
+        try:
+
+            logger.info(
+                "Starting Data Validation."
+            )
+
+            self._load_dataset()
+
+            self._load_schema()
+
+            self._initialize_report()
+
+            self._check_required_columns()
+
+            self._check_data_types()
+
+            self._check_allowed_values()
+
+            self._check_duplicates()
+
+            self._check_missing_threshold()
+
+            self._save_validation_report()
+
+            logger.info(
+                "Data Validation Completed."
+            )
+
+            return DataValidationArtifact(
+
+                validation_status=self.validation_status,
+
+                report_file_path=self.config.validation_report_file_path,
+
+                status_file_path=self.config.validation_status_file_path,
+
+            )
+
+        except Exception as error:
+
+            logger.exception(
+                "Data Validation Failed."
+            )
+
+            raise CustomException(
+                error,
+                sys,
+            )
