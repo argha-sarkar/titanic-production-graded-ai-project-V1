@@ -112,10 +112,12 @@ class DataIngestionArtifact:
 @dataclass(frozen=True)
 class DataValidationArtifact:
     """
-    Output of the Data Validation component.
+    Output produced by the Data Validation component.
     """
 
     validation_status: bool
+
+    validated_train_file_path: Path
 
     report_file_path: Path
 

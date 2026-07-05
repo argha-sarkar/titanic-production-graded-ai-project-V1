@@ -417,15 +417,18 @@ class DataValidation:
                 "Data Validation Completed."
             )
 
+            
             return DataValidationArtifact(
 
                 validation_status=self.validation_status,
+
+                validated_train_file_path=self.ingestion_artifact.train_file_path,
 
                 report_file_path=self.config.validation_report_file_path,
 
                 status_file_path=self.config.validation_status_file_path,
 
-            )
+)
 
         except Exception as error:
 
