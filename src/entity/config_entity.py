@@ -83,3 +83,18 @@ class LoggingConfig:
     log_level: str
 
     log_dir: Path
+    
+    
+# ==========================================================
+# Data Ingestion Artifact
+# ==========================================================
+
+@dataclass(frozen=True)
+class DataIngestionArtifact:
+    """
+    Output of the Data Ingestion component.
+    """
+
+    train_file_path: Path
+
+    test_file_path: Path
