@@ -14,6 +14,10 @@ from src.logger.logger import (
     logger,
 )
 
+from src.components.data_transformation import(
+    DataTransformation,
+)
+
 
 class TrainingPipeline:
 
@@ -62,6 +66,19 @@ class TrainingPipeline:
 
         logger.info(
             "Training Pipeline Completed."
+        )
+        
+        transformation = DataTransformation(
+            config=self.config.get_data_transformation_config(),
+            validation_artifact=validation_artifact,
+        )
+
+        transformation_artifact = (
+            transformation.initiate_data_transformation()
+        )
+
+        logger.info(
+            transformation_artifact
         )
 
 

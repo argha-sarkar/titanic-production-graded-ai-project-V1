@@ -3,6 +3,8 @@ Production Data Transformation Component.
 """
 
 import sys
+from pathlib import Path
+
 
 import numpy as np
 import pandas as pd
@@ -35,6 +37,12 @@ from src.utils.common import (
     save_numpy_array,
     save_object,
 )
+
+from sklearn.model_selection import (
+    train_test_split,
+)
+
+
 
 
 class DataTransformation:
@@ -211,18 +219,183 @@ class DataTransformation:
     
     def _fit_transform(
         self,
-        X: pd.DataFrame,
+        train_df: pd.DataFrame,
+        test_df: pd.DataFrame,
     ):
+        """"
+        Fit the preprocessor on the training data and 
+        transform both training and testing data.
         """
-        Fit and transform features.
+        (
+            numerical_features,
+            categorical_features,
+            target_column,
+        ) = self._get_feature_lists()
+        
+        feature_columns = (
+            numerical_features +
+            categorical_features
+        )
+        
+        X_train = train_df[
+            feature_columns
+        ]
+        
+        y_train = train_df[
+            target_column
+        ]
+        
+        x_test = test_df[
+            feature_columns
+        ]
+        
+        y_test = test_df[
+            target_column
+        ]
+        
+        preprocessor = self._build_preprocessor()
+        
+        X_train = preprocessor.fit_transform(
+            X_train
+        )
+        
+        X_test = preprocessor.transform(
+            x_test
+        )
+        
+        train_array = np.c_[
+            X_train,
+            y_train.to_numpy()
+        ]
+        
+        test_array = np.c_[
+            X_test,
+            y_test.to_numpy(),
+        ]
+        
+        return (
+            train_array,
+            test_array,
+            preprocessor,
+        )
+    
+    
+    def _split_dataset(
+        self,
+        dataframe: pd.DataFrame,
+    ):
+        
         """
-
+        Split dataset into training and testing sets.
+        """
+        
         logger.info(
-            "Fitting preprocessing pipeline."
+            "Spliting dataset"
+        )
+        
+        return train_test_split(
+            dataframe,
+            test_size = self.config.test_size,
+            random_state = self.config.random_state,
+            stratify=dataframe[
+                self.config.target_column
+                ], 
+        )
+    
+    def _save_artifacts(
+        self,
+        train_array: np.ndarray,
+        test_array: np.ndarray,
+        preprocessor: ColumnTransformer,
+    ) -> None:
+        """
+        Save the transformed data arrays and the preprocessor object.
+        """
+        # Ensure the directory exists
+        create_directories([Path(self.config.root_dir)])
+
+        # Save the train and test arrays
+        save_numpy_array(
+            file_path=self.config.train_array_path,
+            array=train_array,
+        )
+        save_numpy_array(
+            file_path=self.config.test_array_path,
+            array=test_array,
         )
 
-        preprocessor = self._build_preprocessor()
+        # Save the preprocessor object
+        save_object(
+            file_path=self.config.preprocessor_path,
+            obj=preprocessor,
+        )
+        
+    
+    def initiate_data_transformation(
+    self,
+    ) -> DataTransformationArtifact:
+        """
+        Execute the complete data transformation pipeline.
+        """
 
-        transformed = preprocessor.fit_transform(X)
+        try:
 
-        return transformed, preprocessor
+            logger.info(
+                "Starting Data Transformation."
+            )
+
+            dataframe = self._load_dataset()
+
+            train_df, test_df = self._split_dataset(
+                dataframe
+            )
+
+            (
+                train_array,
+                test_array,
+                preprocessor,
+            ) = self._fit_transform(
+                train_df,
+                test_df,
+            )
+
+            self._save_artifacts(
+                train_array,
+                test_array,
+                preprocessor,
+            )
+
+            logger.info(
+                "Data Transformation Completed."
+            )
+
+            return DataTransformationArtifact(
+
+                train_array_path=self.config.train_array_path,
+
+                test_array_path=self.config.test_array_path,
+
+                preprocessor_path=self.config.preprocessor_path,
+
+            )
+
+        except Exception as error:
+
+            logger.exception(
+                "Data Transformation Failed."
+            )
+
+            raise CustomException(
+                error,
+                sys,
+            )
+            
+            
+    @staticmethod
+    def _create_categorical_pipeline():
+        return Pipeline(
+            steps=[
+                ("imputer", SimpleImputer(strategy="most_frequent")),
+                ("encoder", OneHotEncoder(handle_unknown="ignore")),
+            ]
+        )

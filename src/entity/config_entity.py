@@ -56,7 +56,11 @@ class DataValidationConfig:
 
 @dataclass(frozen=True)
 class DataTransformationConfig:
-
+    
+    """
+    Configuration for data transformation.
+    """
+    
     root_dir: Path
 
     train_array_path: Path
@@ -64,6 +68,12 @@ class DataTransformationConfig:
     test_array_path: Path
 
     preprocessor_path: Path
+    
+    target_column: str
+    
+    test_size: float
+    
+    random_state: int
 
 
 # ==========================================================
@@ -139,3 +149,5 @@ class DataTransformationArtifact:
     test_array_path: Path
 
     preprocessor_path: Path
+    
+    

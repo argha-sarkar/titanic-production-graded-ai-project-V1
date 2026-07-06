@@ -1,0 +1,27 @@
+2026-07-06 20:32:28 | INFO     | training_pipeline.py:30 | Training Pipeline Started.
+2026-07-06 20:32:28 | INFO     | data_ingestion.py:80 | Starting Data Ingestion.
+2026-07-06 20:32:28 | INFO     | data_ingestion.py:41 | Creating artifact directory.
+2026-07-06 20:32:28 | INFO     | data_ingestion.py:68 | data\raw\train.csv copied to artifacts\data_ingestion\train.csv
+2026-07-06 20:32:28 | INFO     | data_ingestion.py:68 | data\raw\test.csv copied to artifacts\data_ingestion\test.csv
+2026-07-06 20:32:28 | INFO     | data_ingestion.py:102 | Data Ingestion Completed.
+2026-07-06 20:32:28 | INFO     | training_pipeline.py:46 | DataIngestionArtifact(train_file_path=WindowsPath('artifacts/data_ingestion/train.csv'), test_file_path=WindowsPath('artifacts/data_ingestion/test.csv'))
+2026-07-06 20:32:28 | INFO     | data_validation.py:394 | Starting Data Validation.
+2026-07-06 20:32:28 | INFO     | data_validation.py:61 | Loading training dataset.
+2026-07-06 20:32:28 | INFO     | data_validation.py:76 | Loading schema.
+2026-07-06 20:32:28 | INFO     | data_validation.py:112 | Checking required columns.
+2026-07-06 20:32:28 | INFO     | data_validation.py:154 | Checking data types.
+2026-07-06 20:32:28 | INFO     | data_validation.py:207 | Checking categorical values.
+2026-07-06 20:32:28 | INFO     | data_validation.py:265 | Checking duplicates.
+2026-07-06 20:32:28 | INFO     | data_validation.py:303 | Checking missing thresholds.
+2026-07-06 20:32:28 | INFO     | data_validation.py:416 | Data Validation Completed.
+2026-07-06 20:32:28 | INFO     | training_pipeline.py:63 | DataValidationArtifact(validation_status=True, validated_train_file_path=WindowsPath('artifacts/data_ingestion/train.csv'), report_file_path=WindowsPath('artifacts/data_validation/report.yaml'), status_file_path=WindowsPath('artifacts/data_validation/status.txt'))
+2026-07-06 20:32:28 | INFO     | training_pipeline.py:67 | Training Pipeline Completed.
+2026-07-06 20:32:28 | INFO     | data_transformation.py:311 | Starting Data Transformation.
+2026-07-06 20:32:28 | INFO     | data_transformation.py:173 | Loading validated dataset.
+2026-07-06 20:32:28 | INFO     | data_transformation.py:288 | Spliting dataset
+2026-07-06 20:32:28 | ERROR    | data_transformation.py:352 | Data Transformation Failed.
+Traceback (most recent call last):
+  File "F:\ml-project\titanic-production-ml\src\components\data_transformation.py", line 330, in initiate_data_transformation
+    self._save_artifacts(
+    ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DataTransformation' object has no attribute '_save_artifacts'

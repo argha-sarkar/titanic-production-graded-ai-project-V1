@@ -1,0 +1,23 @@
+2026-07-06 20:36:14 | INFO     | training_pipeline.py:30 | Training Pipeline Started.
+2026-07-06 20:36:14 | INFO     | data_ingestion.py:80 | Starting Data Ingestion.
+2026-07-06 20:36:14 | INFO     | data_ingestion.py:41 | Creating artifact directory.
+2026-07-06 20:36:14 | INFO     | data_ingestion.py:68 | data\raw\train.csv copied to artifacts\data_ingestion\train.csv
+2026-07-06 20:36:14 | INFO     | data_ingestion.py:68 | data\raw\test.csv copied to artifacts\data_ingestion\test.csv
+2026-07-06 20:36:14 | INFO     | data_ingestion.py:102 | Data Ingestion Completed.
+2026-07-06 20:36:14 | INFO     | training_pipeline.py:46 | DataIngestionArtifact(train_file_path=WindowsPath('artifacts/data_ingestion/train.csv'), test_file_path=WindowsPath('artifacts/data_ingestion/test.csv'))
+2026-07-06 20:36:14 | INFO     | data_validation.py:394 | Starting Data Validation.
+2026-07-06 20:36:14 | INFO     | data_validation.py:61 | Loading training dataset.
+2026-07-06 20:36:14 | INFO     | data_validation.py:76 | Loading schema.
+2026-07-06 20:36:14 | INFO     | data_validation.py:112 | Checking required columns.
+2026-07-06 20:36:14 | INFO     | data_validation.py:154 | Checking data types.
+2026-07-06 20:36:14 | INFO     | data_validation.py:207 | Checking categorical values.
+2026-07-06 20:36:14 | INFO     | data_validation.py:265 | Checking duplicates.
+2026-07-06 20:36:14 | INFO     | data_validation.py:303 | Checking missing thresholds.
+2026-07-06 20:36:14 | INFO     | data_validation.py:416 | Data Validation Completed.
+2026-07-06 20:36:14 | INFO     | training_pipeline.py:63 | DataValidationArtifact(validation_status=True, validated_train_file_path=WindowsPath('artifacts/data_ingestion/train.csv'), report_file_path=WindowsPath('artifacts/data_validation/report.yaml'), status_file_path=WindowsPath('artifacts/data_validation/status.txt'))
+2026-07-06 20:36:14 | INFO     | training_pipeline.py:67 | Training Pipeline Completed.
+2026-07-06 20:36:14 | INFO     | data_transformation.py:343 | Starting Data Transformation.
+2026-07-06 20:36:14 | INFO     | data_transformation.py:177 | Loading validated dataset.
+2026-07-06 20:36:14 | INFO     | data_transformation.py:292 | Spliting dataset
+2026-07-06 20:36:14 | INFO     | data_transformation.py:368 | Data Transformation Completed.
+2026-07-06 20:36:14 | INFO     | training_pipeline.py:80 | DataTransformationArtifact(train_array_path=WindowsPath('artifacts/data_transformation/train.npy'), test_array_path=WindowsPath('artifacts/data_transformation/test.npy'), preprocessor_path=WindowsPath('artifacts/data_transformation/preprocessor.joblib'))

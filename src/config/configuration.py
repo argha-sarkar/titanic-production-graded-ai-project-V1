@@ -104,33 +104,42 @@ class ConfigurationManager:
         )
 
     
-    
-    
     def get_data_transformation_config(
-        self
+    self,
     ) -> DataTransformationConfig:
 
-        config = self.config["artifacts"]["data_transformation"]
+        artifact_config = self.config["artifacts"]["data_transformation"]
+
+        training_config = self.config["training"]
+        
+        print(f"DEBUG: Training config keys are: {training_config.keys()}")
 
         return DataTransformationConfig(
 
             root_dir=Path(
-                config["root_dir"]
+                artifact_config["root_dir"]
             ),
 
             train_array_path=Path(
-                config["train_array"]
+                artifact_config["train_array"]
             ),
 
             test_array_path=Path(
-                config["test_array"]
+                artifact_config["test_array"]
             ),
 
             preprocessor_path=Path(
-                config["preprocessor"]
+                artifact_config["preprocessor"]
             ),
-        )
 
+            target_column=training_config["target_column"],
+
+            test_size=training_config["test_size"],
+
+            random_state=training_config["random_state"],
+        )
+    
+    
     def get_model_trainer_config(
         self
     ) -> ModelTrainerConfig:
