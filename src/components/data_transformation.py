@@ -274,8 +274,10 @@ class DataTransformation:
         ]
         
         return (
-            train_array,
-            test_array,
+            X_train,
+            y_train.to_numpy(),
+            X_test,
+            y_test.to_numpy(),
             preprocessor,
         )
     
@@ -304,8 +306,10 @@ class DataTransformation:
     
     def _save_artifacts(
         self,
-        train_array: np.ndarray,
-        test_array: np.ndarray,
+        X_train: np.ndarray,
+        y_train: np.ndarray,
+        X_test: np.ndarray,
+        y_test: np.ndarray,
         preprocessor: ColumnTransformer,
     ) -> None:
         """
@@ -316,12 +320,23 @@ class DataTransformation:
 
         # Save the train and test arrays
         save_numpy_array(
-            file_path=self.config.train_array_path,
-            array=train_array,
+            file_path=self.config.X_train_path,
+            array=X_train,
         )
+
         save_numpy_array(
-            file_path=self.config.test_array_path,
-            array=test_array,
+            file_path=self.config.y_train_path,
+            array=y_train,
+        )
+
+        save_numpy_array(
+            file_path=self.config.X_test_path,
+            array=X_test,
+        )
+
+        save_numpy_array(
+            file_path=self.config.y_test_path,
+            array=y_test,
         )
 
         # Save the preprocessor object
@@ -351,8 +366,10 @@ class DataTransformation:
             )
 
             (
-                train_array,
-                test_array,
+                X_train,
+                y_train,
+                X_test,
+                y_test,
                 preprocessor,
             ) = self._fit_transform(
                 train_df,
@@ -360,8 +377,10 @@ class DataTransformation:
             )
 
             self._save_artifacts(
-                train_array,
-                test_array,
+                X_train,
+                y_train,
+                X_test,
+                y_test,
                 preprocessor,
             )
 
@@ -371,9 +390,13 @@ class DataTransformation:
 
             return DataTransformationArtifact(
 
-                train_array_path=self.config.train_array_path,
+                X_train_path=self.config.X_train_path,
 
-                test_array_path=self.config.test_array_path,
+                y_train_path=self.config.y_train_path,
+
+                X_test_path=self.config.X_test_path,
+
+                y_test_path=self.config.y_test_path,
 
                 preprocessor_path=self.config.preprocessor_path,
 

@@ -120,12 +120,20 @@ class ConfigurationManager:
                 artifact_config["root_dir"]
             ),
 
-            train_array_path=Path(
-                artifact_config["train_array"]
+            X_train_path = Path(
+                artifact_config["X_train"]
             ),
 
-            test_array_path=Path(
-                artifact_config["test_array"]
+            y_train_path=Path(
+                artifact_config["y_train"]
+            ),
+
+            X_test_path=Path(
+                artifact_config["X_test"]
+            ),
+
+            y_test_path=Path(
+                artifact_config["y_test"]
             ),
 
             preprocessor_path=Path(

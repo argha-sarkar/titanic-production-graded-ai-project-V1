@@ -47,9 +47,13 @@ artifacts:
 
     root_dir: artifacts/data_transformation
 
-    train_array: artifacts/data_transformation/train.npy
+    X_train: artifacts/data_transformation/X_train.npy
 
-    test_array: artifacts/data_transformation/test.npy
+    y_train: artifacts/data_transformation/y_train.npy
+
+    X_test: artifacts/data_transformation/X_test.npy
+
+    y_test: artifacts/data_transformation/y_test.npy
 
     preprocessor: artifacts/data_transformation/preprocessor.joblib
 

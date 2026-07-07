@@ -63,9 +63,13 @@ class DataTransformationConfig:
     
     root_dir: Path
 
-    train_array_path: Path
+    X_train_path: Path
 
-    test_array_path: Path
+    y_train_path: Path
+
+    X_test_path: Path
+
+    y_test_path: Path
 
     preprocessor_path: Path
     
@@ -140,14 +144,10 @@ class DataValidationArtifact:
 
 @dataclass(frozen=True)
 class DataTransformationArtifact:
-    """
-    Output of the Data Transformation component.
-    """
-
-    train_array_path: Path
-
-    test_array_path: Path
-
+    X_train_path: Path
+    y_train_path: Path
+    X_test_path: Path
+    y_test_path: Path
     preprocessor_path: Path
     
     
