@@ -1,0 +1,19 @@
+{
+    "best_model": "Gradient Boosting",
+    "cv_mean": 0.8145474244065793,
+    "cv_std": 0.019701132508796394,
+    "test_accuracy": 0.8212290502793296,
+    "training_time_seconds": 0.4323,
+    "model_size_kb": 0.0,
+    "classification_report": "              precision    recall  f1-score   support\n\n           0       0.82      0.90      0.85       105\n           1       0.83      0.72      0.77        74\n\n    accuracy                           0.82       179\n   macro avg       0.82      0.81      0.81       179\nweighted avg       0.82      0.82      0.82       179\n",
+    "confusion_matrix": [
+        [
+            94,
+            11
+        ],
+        [
+            21,
+            53
+        ]
+    ]
+}

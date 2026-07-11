@@ -18,6 +18,10 @@ from src.components.data_transformation import(
     DataTransformation,
 )
 
+from src.components.model_trainer import (
+    ModelTrainer
+)
+
 
 class TrainingPipeline:
 
@@ -80,6 +84,16 @@ class TrainingPipeline:
         logger.info(
             transformation_artifact
         )
+        
+        
+        trainer = ModelTrainer(
+            config=self.config.get_model_trainer_config(),
+            transformation_artifact=transformation_artifact,
+        )
+
+        trainer_artifact = trainer.initiate_model_training()
+
+        logger.info(trainer_artifact)
 
 
 if __name__ == "__main__":

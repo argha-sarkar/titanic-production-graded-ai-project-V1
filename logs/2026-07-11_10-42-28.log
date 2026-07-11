@@ -1,0 +1,20 @@
+2026-07-11 10:42:32 | INFO     | training_pipeline.py:34 | Training Pipeline Started.
+2026-07-11 10:42:32 | INFO     | data_ingestion.py:80 | Starting Data Ingestion.
+2026-07-11 10:42:32 | INFO     | data_ingestion.py:41 | Creating artifact directory.
+2026-07-11 10:42:32 | INFO     | data_ingestion.py:68 | data\raw\train.csv copied to artifacts\data_ingestion\train.csv
+2026-07-11 10:42:32 | INFO     | data_ingestion.py:68 | data\raw\test.csv copied to artifacts\data_ingestion\test.csv
+2026-07-11 10:42:32 | INFO     | data_ingestion.py:102 | Data Ingestion Completed.
+2026-07-11 10:42:32 | INFO     | training_pipeline.py:50 | DataIngestionArtifact(train_file_path=WindowsPath('artifacts/data_ingestion/train.csv'), test_file_path=WindowsPath('artifacts/data_ingestion/test.csv'))
+2026-07-11 10:42:32 | INFO     | data_validation.py:394 | Starting Data Validation.
+2026-07-11 10:42:32 | INFO     | data_validation.py:61 | Loading training dataset.
+2026-07-11 10:42:32 | INFO     | data_validation.py:76 | Loading schema.
+2026-07-11 10:42:32 | INFO     | data_validation.py:112 | Checking required columns.
+2026-07-11 10:42:32 | INFO     | data_validation.py:154 | Checking data types.
+2026-07-11 10:42:32 | INFO     | data_validation.py:207 | Checking categorical values.
+2026-07-11 10:42:32 | INFO     | data_validation.py:265 | Checking duplicates.
+2026-07-11 10:42:32 | INFO     | data_validation.py:303 | Checking missing thresholds.
+2026-07-11 10:42:32 | INFO     | data_validation.py:416 | Data Validation Completed.
+2026-07-11 10:42:32 | INFO     | training_pipeline.py:67 | DataValidationArtifact(validation_status=True, validated_train_file_path=WindowsPath('artifacts/data_ingestion/train.csv'), report_file_path=WindowsPath('artifacts/data_validation/report.yaml'), status_file_path=WindowsPath('artifacts/data_validation/status.txt'))
+2026-07-11 10:42:32 | INFO     | training_pipeline.py:71 | Training Pipeline Completed.
+2026-07-11 10:42:32 | INFO     | data_transformation.py:50 | Starting Data Transformation.
+2026-07-11 10:42:32 | INFO     | training_pipeline.py:84 | DataTransformationArtifact(X_train_path=WindowsPath('artifacts/data_transformation/X_train.npy'), y_train_path=WindowsPath('artifacts/data_transformation/y_train.npy'), X_test_path=WindowsPath('artifacts/data_transformation/X_test.npy'), y_test_path=WindowsPath('artifacts/data_transformation/y_test.npy'), preprocessor_path=WindowsPath('artifacts/data_transformation/preprocessor.joblib'))
