@@ -63,6 +63,19 @@ artifacts:
 
     trained_model: artifacts/model_trainer/model.joblib
 
+    metrics: artifacts/model_trainer/metrics.json
+
+    leaderboard: artifacts/model_trainer/leaderboard.csv
+
+
+  model_training:
+
+    random_state: 42
+
+    cv_folds: 5
+
+    scoring: accuracy
+
 # ==========================================================
 # Model Parameters
 # ==========================================================

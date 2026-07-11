@@ -1,39 +1,25 @@
-from src.config.configuration import ConfigurationManager
+import os
+from src.components.data_transformation import DataTransformation
 from src.components.data_ingestion import DataIngestion
 from src.components.data_validation import DataValidation
-from src.components.data_transformation import DataTransformation
-
+from src.config.configuration import ConfigurationManager
 
 def test_data_transformation():
-
     manager = ConfigurationManager()
+    
+    # Chain components for integration test
+    ingestion = DataIngestion(manager.get_data_ingestion_config())
+    ingestion_artifact = ingestion.initiate_data_ingestion()
+    
+    validation = DataValidation(manager.get_data_validation_config(), ingestion_artifact)
+    validation_artifact = validation.initiate_data_validation()
+    
+    transformation = DataTransformation(manager.get_data_transformation_config(), validation_artifact)
+    artifact = transformation.initiate_data_transformation()
 
-    ingestion = DataIngestion(
-        manager.get_data_ingestion_config()
-    )
-
-    ingestion_artifact = (
-        ingestion.initiate_data_ingestion()
-    )
-
-    validation = DataValidation(
-        config=manager.get_data_validation_config(),
-        ingestion_artifact=ingestion_artifact,
-    )
-
-    validation_artifact = (
-        validation.initiate_data_validation()
-    )
-
-    transformation = DataTransformation(
-        config=manager.get_data_transformation_config(),
-        validation_artifact=validation_artifact,
-    )
-
-    artifact = (
-        transformation.initiate_data_transformation()
-    )
-
-    assert artifact.train_array_path.exists()
-    assert artifact.test_array_path.exists()
-    assert artifact.preprocessor_path.exists()
+    # Assertions
+    assert os.path.exists(artifact.X_train_path)
+    assert os.path.exists(artifact.y_train_path)
+    assert os.path.exists(artifact.X_test_path)
+    assert os.path.exists(artifact.y_test_path)
+    assert os.path.exists(artifact.preprocessor_path)

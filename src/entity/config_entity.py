@@ -86,10 +86,23 @@ class DataTransformationConfig:
 
 @dataclass(frozen=True)
 class ModelTrainerConfig:
+    """
+    Configuration for model training.
+    """
 
     root_dir: Path
 
     trained_model_path: Path
+
+    metrics_path: Path
+
+    leaderboard_path: Path
+
+    random_state: int
+
+    cv_folds: int
+
+    scoring: str
     
     
 # ==========================================================
@@ -150,4 +163,23 @@ class DataTransformationArtifact:
     y_test_path: Path
     preprocessor_path: Path
     
+# ==========================================================
+# Model Trainer Artificat
+# ==========================================================
+
+@dataclass(frozen=True)
+class ModelTrainerArtifact:
+    """
+    Output of model training.
+    """
+
+    best_model_path: Path
+
+    metrics_path: Path
+
+    leaderboard_path: Path
+
+    best_model_name: str
+
+    best_score: float
     

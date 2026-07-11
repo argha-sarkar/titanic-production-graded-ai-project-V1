@@ -149,20 +149,36 @@ class ConfigurationManager:
     
     
     def get_model_trainer_config(
-        self
+        self,
     ) -> ModelTrainerConfig:
 
-        config = self.config["artifacts"]["model_trainer"]
+        artifact_config = self.config["artifacts"]["model_trainer"]
+
+        training_config = self.config["model_training"]
 
         return ModelTrainerConfig(
 
             root_dir=Path(
-                config["root_dir"]
+                artifact_config["root_dir"]
             ),
 
             trained_model_path=Path(
-                config["trained_model"]
+                artifact_config["trained_model"]
             ),
+
+            metrics_path=Path(
+                artifact_config["metrics"]
+            ),
+
+            leaderboard_path=Path(
+                artifact_config["leaderboard"]
+            ),
+
+            random_state=training_config["random_state"],
+
+            cv_folds=training_config["cv_folds"],
+
+            scoring=training_config["scoring"],
         )
         
     def get_logging_config(
