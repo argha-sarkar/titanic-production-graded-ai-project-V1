@@ -1,6 +1,7 @@
 """
 Production Model Trainer.
 """
+import csv
 
 import json
 import sys
@@ -22,6 +23,12 @@ from sklearn.model_selection import (
 
 from sklearn.tree import (
     DecisionTreeClassifier,
+)
+
+from sklearn.metrics import (
+    accuracy_score,
+    classification_report,
+    confusion_matrix,
 )
 
 from src.entity.config_entity import (
@@ -146,3 +153,137 @@ class ModelTrainer:
                 ),
 
         }
+        
+# ==========================================================
+# Create Model Evaluation Loop
+# ==========================================================
+
+        
+    def _evaluate_models(
+        self,
+        X_train,
+        y_train,
+    ):
+        """
+        Perform cross-validation for each candidate model.
+        """
+
+        logger.info(
+            "Evaluating baseline models."
+        )
+
+        leaderboard = []
+
+        models = self._get_models()
+
+        for name, model in models.items():
+
+            scores = cross_val_score(
+                estimator=model,
+                X=X_train,
+                y=y_train,
+                cv=self.config.cv_folds,
+                scoring=self.config.scoring,
+            )
+
+            leaderboard.append(
+
+                {
+
+                    "model": name,
+
+                    "cv_mean": scores.mean(),
+
+                    "cv_std": scores.std(),
+
+                    "estimator": model,
+
+                }
+
+            )
+
+        leaderboard.sort(
+
+            key=lambda row: row["cv_mean"],
+
+            reverse=True,
+
+        )
+
+        return leaderboard
+
+# ==========================================================
+# Train the Best Candidate
+# ==========================================================
+
+    def _train_best_model(
+        self,
+        leaderboard,
+        X_train,
+        y_train,
+    ):
+        """
+        Fit the best candidate on the full training set.
+        """
+
+        best = leaderboard[0]
+
+        model = best["estimator"]
+
+        model.fit(
+            X_train,
+            y_train,
+        )
+
+        return model, best
+    
+
+# ==========================================================
+# Final Test Evaluation
+# ==========================================================
+
+    def _evaluate_test_set(
+        self,
+        model,
+        X_test,
+        y_test,
+    ):
+        """
+        Evaluate the selected model on the hold-out test set.
+        """
+
+        predictions = model.predict(
+            X_test
+        )
+
+        accuracy = accuracy_score(
+            y_test,
+            predictions,
+        )
+
+        report = classification_report(
+            y_test,
+            predictions,
+        )
+
+        matrix = confusion_matrix(
+            y_test,
+            predictions,
+        )
+
+        return accuracy, report, matrix
+
+
+# ==========================================================
+# Train the Best Candidate
+# ==========================================================
+
+
+# ==========================================================
+# Train the Best Candidate
+# ==========================================================
+
+
+# ==========================================================
+# Train the Best Candidate
+# ==========================================================
