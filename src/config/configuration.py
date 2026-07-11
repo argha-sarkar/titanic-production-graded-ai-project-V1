@@ -64,20 +64,49 @@ class ConfigurationManager:
             random_state=training_config["random_state"],
         )
 
-    def get_model_trainer_config(self) -> ModelTrainerConfig:
-        # Access the path settings
+    def get_model_trainer_config(
+        self,
+    ) -> ModelTrainerConfig:
+
         artifact_config = self.config["artifacts"]["model_trainer"]
-        # Access the hyperparameter settings
-        training_config = self.config["artifacts"]["model_training"]
+
+        training_config = self.config["model_training"]
+
+        mlflow_config = self.config["mlflow"]
 
         return ModelTrainerConfig(
-            root_dir=Path(artifact_config["root_dir"]),
-            trained_model_path=Path(artifact_config["trained_model"]),
-            metrics_path=Path(artifact_config["metrics"]),
-            leaderboard_path=Path(artifact_config["leaderboard"]),
+
+            root_dir=Path(
+                artifact_config["root_dir"]
+            ),
+
+            trained_model_path=Path(
+                artifact_config["trained_model"]
+            ),
+
+            metrics_path=Path(
+                artifact_config["metrics"]
+            ),
+
+            leaderboard_path=Path(
+                artifact_config["leaderboard"]
+            ),
+
             random_state=training_config["random_state"],
+
             cv_folds=training_config["cv_folds"],
+
             scoring=training_config["scoring"],
+
+            # -----------------------------
+            # MLflow Configuration
+            # -----------------------------
+
+            mlflow_tracking_uri=mlflow_config["tracking_uri"],
+
+            experiment_name=mlflow_config["experiment_name"],
+
+            register_best_model=mlflow_config["register_best_model"],
         )
 
     def get_logging_config(self) -> LoggingConfig:

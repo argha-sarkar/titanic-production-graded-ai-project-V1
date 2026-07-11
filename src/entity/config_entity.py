@@ -87,7 +87,7 @@ class DataTransformationConfig:
 @dataclass(frozen=True)
 class ModelTrainerConfig:
     """
-    Configuration for model training.
+    Configuration for the Model Trainer component.
     """
 
     root_dir: Path
@@ -103,6 +103,16 @@ class ModelTrainerConfig:
     cv_folds: int
 
     scoring: str
+
+    # -----------------------------
+    # MLflow Configuration
+    # -----------------------------
+
+    mlflow_tracking_uri: str
+
+    experiment_name: str
+
+    register_best_model: bool
     
     
 # ==========================================================
